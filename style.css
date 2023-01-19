@@ -50,8 +50,10 @@
     margin: 2px 0;
     background-color: #FFFFFF;
     display: flex;
+    flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+    word-break: break-all;
 }
 
 .mensagemPrivada{
@@ -62,38 +64,33 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+    word-break: break-word;
 }
 
-.texto{
+.mensagem{
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 20px;
     color: #000000;
+    word-break: break-word;
 }
 
-.negrito{
+.nome{
     font-family: 'Roboto', sans-serif;
     font-weight: 700;
     font-size: 14px;
     line-height: 20px;
     color: #000000;
-    padding: 0 4px;
 }
 
 .hora{
     font-family: 'Roboto', sans-serif;
     font-weight: 400;
     font-size: 14px;
-    line-height: 17px;
+    line-height: 20px;
     color: #AAAAAA;
-    padding: 0 6px 0 0;
-}
-
-.mensagem{
-    overflow-wrap: break-word;
-    word-wrap: break-word; 
-    word-break: break-word;
+    padding: 0 5px 0 0;
 }
 
 .footer{
@@ -135,6 +132,8 @@
 
 .iconeEnvio{
     margin: 24px 15px;
+    border: none;
+    background-color: #FFFFFF;
 }
 
 .iconeEnvio ion-icon {

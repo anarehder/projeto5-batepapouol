@@ -32,43 +32,53 @@
             </div>
         </div>
         <div class="main largura">
-            <div class="acessoNaSala">
-                <div class="hora">(09:21:45)</div>
-                <div class="usuario negrito">João</div>
-                <div class="mensagem texto">entra na sala...</div>
+            <div class="acessoNaSala" data-test="message">
+                <div>
+                    <span class="hora">(09:21:45)</span>
+                    <span class="nome">João</span>
+                    <span class="mensagem">entra na sala...</span>
+                </div>
             </div>
-            <div class="mensagemComum">
-                <div class="hora">(09:22:28)</div>
-                <div class="usuario negrito">João</div>
-                <div class="mensagem texto">para</div>
-                <div class="destinatario negrito">Todos:</div>
-                <div class="mensagem texto">Bom dia</div>
+            <div class="mensagemComum" data-test="message">
+                <div>
+                    <span class="hora">(09:22:28)</span>
+                    <span class="nome">João</span>
+                    <span class="mensagem">para</span>
+                    <span class="nome">Todos:</span>
+                    <span class="mensagem">Bom dia</span>
+                </div>
             </div>
-            <div class="mensagemComum">
-                <div class="hora">(09:22:38)</div>
-                <div class="usuario negrito">Maria</div>
-                <div class="mensagem texto">para</div>
-                <div class="destinatario negrito">João:</div>
-                <div class="mensagem texto">Oi João :)</div>
+            <div class="mensagemComum" data-test="message">
+                <div>
+                    <span class="hora">(09:22:38)</span>
+                    <span class="nome">Maria</span>
+                    <span class="mensagem">para</span>
+                    <span class="nome">João:</span>
+                    <span class="mensagem">Oi João :)</span>
+                </div>
             </div>
-            <div class="mensagemPrivada">
-                <div class="hora">(09:22:48)</div>
-                <div class="usuario negrito">João</div>
-                <div class="mensagem texto">reservadamente para</div>
-                <div class="destinatario negrito">Maria:</div>
-                <div class="mensagem texto">Oi gatinha quer tc?</div>
+            <div class="mensagemPrivada" data-test="message">
+                <div >
+                    <span class="hora">(09:22:48)</span>
+                    <span class="nome">João</span>
+                    <span class="mensagem">reservadamente para</span>
+                    <span class="nome">Maria:</span>
+                    <span class="mensagem">Oi gatinha quer tc?</span>
+                </div>
             </div>
-            <div class="acessoNaSala">
-                <div class="hora">(09:22:58)</div>
-                <div class="usuario negrito">Maria</div>
-                <div class="mensagem texto">sai da sala...</div>
+            <div class="acessoNaSala" data-test="message">
+                <div >
+                    <span class="hora">(09:22:58)</span>
+                    <span class="nome">Maria</span>
+                    <span class="mensagem">sai da sala...</span>
+                </div>
             </div>
         </div>
-        <div class="footer largura">
+        <div class="footer largura" data-test="input-message">
             <div class="enviarMensagem">
                 <input type="text" placeholder="Escreva aqui...">
             </div>
-            <div class="iconeEnvio">
+            <div class="iconeEnvio" data-test="send-message">
                 <ion-icon name="paper-plane-outline"></ion-icon>
             </div>
         </div>
