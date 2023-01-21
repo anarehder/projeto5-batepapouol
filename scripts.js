@@ -1,4 +1,4 @@
-// <div data-test="message" class="mensagem entrou">
+/// <div data-test="message" class="mensagem entrou">
 // <span class="hora">(${chat[i].time}) </span><span class="nome"> ${chat[i].from} </span>${chat[i].text}
 // </div>`
 
@@ -84,11 +84,11 @@ function exibirNaTela(mensagensFiltradas){
     } else if (mensagensFiltradas.type === 'private-message'){
         chat.innerHTML += `<div class="mensagemPrivada" data-test="message">
         <div >
-        <span class="hora">(09:22:48)</span>
-        <span class="nome">João</span>
+        <span class="hora">(${mensagensFiltradas.time})</span>
+        <span class="nome">${mensagensFiltradas.from}</span>
         <span class="mensagem">reservadamente para</span>
-        <span class="nome">Maria:</span>
-        <span class="mensagem">Oi gatinha quer tc?</span>
+        <span class="nome">M${mensagensFiltradas.to}:</span>
+        <span class="mensagem">${mensagensFiltradas.text}</span>
         </div>
         </div>`;
         exibirPorUltimo();
@@ -99,3 +99,16 @@ function exibirPorUltimo(){
     var ultimoElemento  = chat.lastChild;
     ultimoElemento.scrollIntoView();
 }
+
+// na div class="iconeEnvio" colocar funcao no on-click
+// pegar o texto do input
+// montar array para envio de mensagem
+// const mensagemNova = { name: meuNome }; //rótulo e variável
+// {
+//	from: meuNome,
+//	to: "Todos", // ou usuario selecionado para o bônus
+//	text: mensagem retirada do input
+//	type: "message" // ou "private_message" para o bônus
+//}
+// fazer um post para https://mock-api.driven.com.br/api/v6/uol/messages 
+// const promessaEnvioMensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagemNova);
