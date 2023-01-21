@@ -21,8 +21,7 @@ function perguntarNome(){
 
     const promessaUsuario = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",usuario);
 
-    promessaUsuario.then(response => { console.log(response.status)
-        buscarMensagem();});
+    promessaUsuario.then(response => buscarMensagem());
 
     promessaUsuario.catch(erro => {if (erro.request.status === 400){
         alert("Este usuário já está sendo utilizado");
@@ -100,15 +99,17 @@ function exibirPorUltimo(){
     ultimoElemento.scrollIntoView();
 }
 
-// na div class="iconeEnvio" colocar funcao no on-click
-// pegar o texto do input
-// montar array para envio de mensagem
-// const mensagemNova = { name: meuNome }; //rótulo e variável
-// {
-//	from: meuNome,
-//	to: "Todos", // ou usuario selecionado para o bônus
-//	text: mensagem retirada do input
-//	type: "message" // ou "private_message" para o bônus
-//}
-// fazer um post para https://mock-api.driven.com.br/api/v6/uol/messages 
-// const promessaEnvioMensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagemNova);
+function enviarMensagem(){
+    const texto = document. querySelector("input"). value;
+
+    const mensagemNova = { from: meuNome, to: "Todos", text: texto, type: "message" }
+    // ou usuario selecionado para o bônus ou "private_message" para o bônus
+    console. log(texto);
+    console. log(mensagemNova);
+
+    const promessaEnvioMensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagemNova);
+
+    promessaEnvioMensagem.then(response => buscarMensagem());
+
+    promessaEnvioMensagem.catch(erro => location.reload());
+}
