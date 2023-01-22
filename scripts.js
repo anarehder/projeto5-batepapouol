@@ -6,22 +6,6 @@ let telaChat = document.querySelector(".fundo");
 
 chat.innerHTML = "";
 
-function perguntarNome(){
-    meuNome = prompt("Qual seu nome?");
-
-    const usuario = { name: meuNome }; //rótulo e variável
-
-    const promessaUsuario = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",usuario);
-
-    promessaUsuario.then(response => buscarMensagem());
-
-    promessaUsuario.catch(erro => {if (erro.request.status === 400){
-        alert("Este usuário já está sendo utilizado");
-        location.reload();
-       }
-    });
-}
-
 function entrarSala(){
     meuNome = document. querySelector(".insereNome"). value;
     if (meuNome === ""){
@@ -120,6 +104,12 @@ function exibirPorUltimo(){
     var ultimoElemento  = chat.lastChild;
     ultimoElemento.scrollIntoView();
 }
+
+document.addEventListener('keypress', function(e){
+    if(e.which == 13){
+        enviarMensagem();
+    }
+});
 
 function enviarMensagem(){
     const texto = document. querySelector(".insereMensagem"). value;
