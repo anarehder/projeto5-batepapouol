@@ -2,6 +2,78 @@
     width: 600px;
 }
 
+.escondido{
+    display: none;
+}
+
+.telaEntrada{
+    z-index: 2;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.logoEntrada{
+    width: 130px;
+    height: 92px;
+    margin-top: 75px;
+    margin-left: 39%;
+}
+
+.insereNome{
+    width: 261px;
+    height: 54px;
+    margin-top: 95px;
+    margin-left: 28%;
+    background-color: blue;
+    background: #FFFFFF;
+    border: 1px solid #D7D7D7;
+    border-radius: 4px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+    color: #AEAEAE;
+    text-align: center;
+}
+
+.telaEntrada button{
+    margin-top: 15px;
+    margin-left: 41%;
+    width: 109px;
+    height: 45px;
+    border-radius: 9px;
+    background-color: #E7E7E7;
+    color: #696969;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 18px;
+    line-height: 25px;
+}
+
+.carregando{
+    width: 128px;
+    height: 128px;
+    margin-top: 95px;
+    margin-left: 39%;
+    margin-bottom: 20px;
+    transform: scaleX(-1);
+}
+
+.entrando{
+    color: black;
+    border: none;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 22px;
+    line-height: 25px;
+    text-align: center;
+}
+
 .fundo{
     background-color: #F3F3F3;
 }

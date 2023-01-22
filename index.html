@@ -21,8 +21,12 @@
 
   </head>
   <body>
-    <div class="fundo largura">
-
+    <div class="telaEntrada largura">
+        <img class="logoEntrada" src="./imagens/logo 2.png" alt="logo">
+        <input class="insereNome" type="text" placeholder="Digite seu nome" data-test="input-name">
+        <button data-test="send-name" onclick="entrarSala()">Entrar</button>
+    </div>
+    <div class="fundo largura escondido">
         <div class="header largura">
             <div class="logo">
                 <img src="./imagens/logo 2.png" alt="bate-papo">
@@ -76,7 +80,7 @@
         </div>
         <div class="footer largura" data-test="input-message">
             <div class="enviarMensagem">
-                <input type="text" placeholder="Escreva aqui...">
+                <input class="insereMensagem" type="text" placeholder="Escreva aqui...">
             </div>
             <div class="iconeEnvio" data-test="send-message" onclick="enviarMensagem()">
                 <ion-icon name="paper-plane-outline"></ion-icon>
