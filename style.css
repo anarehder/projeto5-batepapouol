@@ -3,11 +3,11 @@
 }
 
 .escondido{
-    display: none;
+    display: none !important; 
 }
 
 .telaEntrada{
-    z-index: 2;
+    z-index: 3;
     height: 100vh;
     display: flex;
     flex-direction: column;
@@ -16,15 +16,15 @@
 .logoEntrada{
     width: 130px;
     height: 92px;
+    margin: 0 auto;
     margin-top: 75px;
-    margin-left: 39%;
 }
 
 .insereNome{
     width: 261px;
     height: 54px;
+    margin: 0 auto;
     margin-top: 95px;
-    margin-left: 28%;
     background-color: blue;
     background: #FFFFFF;
     border: 1px solid #D7D7D7;
@@ -39,8 +39,8 @@
 }
 
 .telaEntrada button{
+    margin: 0 auto;
     margin-top: 15px;
-    margin-left: 41%;
     width: 109px;
     height: 45px;
     border-radius: 9px;
@@ -57,8 +57,8 @@
 .carregando{
     width: 128px;
     height: 128px;
+    margin: 0 auto;
     margin-top: 95px;
-    margin-left: 39%;
     margin-bottom: 20px;
     transform: scaleX(-1);
 }
@@ -74,8 +74,83 @@
     text-align: center;
 }
 
+.telaParticipantes{
+    height: 100vh;
+    display: flex;
+    position: relative;
+}
+
+.fundoEncoberto{
+    height: 100vh;
+    width: 30%;
+    background-color: rgba(0,0,0,0.5);
+    z-index: 3;
+}
+
+.listaParticipantes{
+    height: 100vh;
+    width: 70%;
+    background-color: #FFFFFF;
+    z-index: 3;
+    overflow-y: scroll;
+}
+
+.titulo{
+    margin: 23px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: center;
+}
+
+.opcao{
+    margin: 2px 10px;
+    display: flex;
+}
+
+.iconeVisibilidade{
+    margin: 6px;
+}
+
+.iconeVisibilidade ion-icon {
+    font-size: 24px;
+}
+
+.opcao p{
+    margin: 9px;
+    font-family: 'Roboto', sans-serif;
+    font-style: normal;
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 19px;
+    text-align: left;
+    width: calc(100% - 36px)
+}
+
+.iconeCkeck{
+    margin: 10px;
+    position: relative;
+    right: 10px;
+}
+
+.iconeCkeck ion-icon {
+    font-size: 16px;
+    color:#28BB25;
+}
+
+.visibOp{
+    display: flex;
+    justify-content: space-between;
+}
+
 .fundo{
     background-color: #F3F3F3;
+    z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .header{
@@ -115,6 +190,7 @@
     flex-wrap: wrap;
     justify-content: flex-start;
     align-items: center;
+    word-break: break-all;
 }
 
 .mensagemComum{
@@ -185,8 +261,8 @@
     font-size: 18px;
     font-weight: 400;
     line-height: 21px;
-    color: #000000;
-    margin: 25px 0 25px 18px;
+    color: #000000 !important;
+    margin: 20px 0 10px 18px;
 }
 
 .enviarMensagem input:focus{
@@ -197,9 +273,24 @@
     font-weight: 400;
     line-height: 21px;
     color: #000000;
-    margin: 25px 0 25px 18px;
+    margin: 20px 0 10px 18px;
     box-shadow: 0 0 0 0;
     outline: 0;
+}
+
+.enviarMensagem input::placeholder {
+    color: #000000;
+  }
+
+.enviarMensagem p{
+    font-family: 'Roboto', sans-serif;
+    font-weight: 300;
+    font-size: 14px;
+    line-height: 19px;
+    color: #505050;
+    margin-left: 18px;
+    margin-bottom: 10px;
+    text-align: left;
 }
 
 .iconeEnvio{

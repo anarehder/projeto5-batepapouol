@@ -1,8 +1,16 @@
 let meuNome;
-let mensagens, mensagensFiltradas;
+let texto;
+let tipo = "Público";
+let destinatario ="Todos";
+let mensagens, mensagensFiltradas, participantes;
 let chat = document.querySelector(".main");
 let telaEntrada = document.querySelector(".telaEntrada");
 let telaChat = document.querySelector(".fundo");
+let telaParticipantes = document.querySelector(".telaParticipantes");
+let listaParticipantes = document.querySelector(".contato");
+let alteraFooter = document.querySelector(".enviarMensagem");
+let divParticipante = document.querySelector(".opcao");
+let PrivOuPub = document.querySelector(".visibilidade");
 
 chat.innerHTML = "";
 
@@ -20,9 +28,12 @@ function entrarSala(){
 
     const promessaUsuario = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",usuario);
 
-    promessaUsuario.then(response => {buscarMensagem()
+    promessaUsuario.then(response => {
+        buscarMensagem();
+        buscarParticipantes();
         setInterval(buscarMensagem, 3000);
         setInterval(manterConexao, 5000);
+        setInterval(buscarParticipantes, 10000);
         telaEntrada.classList.add("escondido");
         telaChat.classList.remove("escondido");
     });
@@ -81,18 +92,18 @@ function exibirNaTela(mensagensFiltradas){
         <span class="hora">(${mensagensFiltradas.time})</span>
         <span class="nome">${mensagensFiltradas.from}</span>
         <span class="mensagem">para</span>
-        <span class="nome">Todos:</span>
+        <span class="nome">${mensagensFiltradas.to}</span>
         <span class="mensagem">${mensagensFiltradas.text}</span>
         </div>
         </div>`;
         exibirPorUltimo();
-    } else if (mensagensFiltradas.type === 'private-message'){
+    } else if (mensagensFiltradas.type === 'private_message'){
         chat.innerHTML += `<div class="mensagemPrivada" data-test="message">
         <div >
         <span class="hora">(${mensagensFiltradas.time})</span>
         <span class="nome">${mensagensFiltradas.from}</span>
         <span class="mensagem">reservadamente para</span>
-        <span class="nome">M${mensagensFiltradas.to}:</span>
+        <span class="nome">${mensagensFiltradas.to}:</span>
         <span class="mensagem">${mensagensFiltradas.text}</span>
         </div>
         </div>`;
@@ -112,10 +123,16 @@ document.addEventListener('keypress', function(e){
 });
 
 function enviarMensagem(){
-    const texto = document. querySelector(".insereMensagem"). value;
-
-    const mensagemNova = { from: meuNome, to: "Todos", text: texto, type: "message" };
-    // ou usuario selecionado para o bônus ou "private_message" para o bônus
+    texto = document. querySelector(".insereMensagem"). value;
+    if (texto !== ""){
+    let mensagemNova;
+    if (destinatario === "Todos"){
+        mensagemNova = { from: meuNome, to: "Todos", text: texto, type: "message" };
+    } else if (destinatario !== "Todos" && tipo === "Reservadamente"){ //destinatario especifico e reservado
+        mensagemNova = { from: meuNome, to: destinatario, text: texto, type: "private_message" };
+    } else{ //destinatario especifico mas público
+        mensagemNova = { from: meuNome, to: destinatario, text: texto, type: "message" };
+    }
     console. log(texto);
     console. log(mensagemNova);
 
@@ -124,5 +141,101 @@ function enviarMensagem(){
     promessaEnvioMensagem.then(response => {buscarMensagem();
         document. querySelector(".insereMensagem"). value="";});
 
-    promessaEnvioMensagem.catch(erro => location.reload());
+    promessaEnvioMensagem.catch(erro => console.log(erro));//location.reload());
+    }
+}
+
+function exibirParticipantes(){
+    telaParticipantes.classList.remove("escondido");
+};
+
+function escondeParticipantes(){
+    telaParticipantes.classList.add("escondido");
+};
+
+function buscarParticipantes(){
+    
+
+    const promessaBuscaMensagem = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
+
+    promessaBuscaMensagem.then(response => {participantes = response.data;
+        listaParticipantes.innerHTML = `
+        <p class="titulo">Escolha um contato para enviar mensagem:</p>
+        <div class="opcao participantes" data-test="all" onclick="selecionaParticipante(this)">
+            <div class="iconeVisibilidade" data-test="all" >
+                <ion-icon name="people"></ion-icon>
+            </div>
+            <p>Todos</p>
+            <div class="iconeCkeck escondido">
+                <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
+            </div>
+        </div>`;
+        participantes.forEach(exibirParticipantesTela);
+    });
+
+}
+
+function exibirParticipantesTela(participantes){
+    listaParticipantes.innerHTML += `
+    <div class="opcao" data-test="participant" onclick="selecionaParticipante(this)">
+        <div class="iconeVisibilidade" data-test="participant">
+            <ion-icon name="person-circle"></ion-icon>
+        </div>
+        <p>${participantes.name}</p>
+        <div class="iconeCkeck escondido">
+                <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
+        </div>
+    </div>`;
+}
+
+
+function selecionaParticipante(destinatarioSelecionado){
+    const selecionadoAnt = listaParticipantes.querySelector(".selecionado");
+    const novoIcone = destinatarioSelecionado.querySelector(".iconeCkeck");
+
+    if (selecionadoAnt !== null){
+        selecionadoAnt.classList.remove("selecionado");
+        selecionadoAnt.classList.add("escondido");
+    }
+    novoIcone.classList.add("selecionado");
+    novoIcone.classList.remove("escondido");
+    
+    const destinatarioSel = (destinatarioSelecionado.querySelector("p")).innerHTML;
+    destinatario = destinatarioSel;
+    console.log(destinatario);
+    if(destinatario==="Todos"){
+        const selecionaPublico = document.querySelector(".publico");
+        selecionaVisibilidade(selecionaPublico);
+    }
+
+    alterarFooter();
+}
+
+
+function selecionaVisibilidade(tipoDeVisibilidade){
+    const selecionadoAnt = PrivOuPub.querySelector(".selecionado");
+    const novoIcone = tipoDeVisibilidade.querySelector(".iconeCkeck");
+
+    if (selecionadoAnt !== null){
+        selecionadoAnt.classList.remove("selecionado");
+        selecionadoAnt.classList.add("escondido");
+    }
+    novoIcone.classList.add("selecionado");
+    novoIcone.classList.remove("escondido");
+    
+    const tipoSel = (tipoDeVisibilidade.querySelector("p")).innerHTML;
+    tipo = tipoSel;
+    console.log(tipo);
+    alterarFooter();
+}
+
+function alterarFooter(){
+    const mensagemFooter = alteraFooter.querySelector("p");
+    if (destinatario === "Todos"){
+        mensagemFooter.innerHTML = `Enviando para Todos`;
+    } else if (tipo === "Público" || tipo ===""){
+        mensagemFooter.innerHTML = "Enviando para " + destinatario;
+    } else if (tipo === "Reservadamente") {
+        mensagemFooter.innerHTML = "Enviando para " + destinatario + " (reservadamente)";
+    };
 }

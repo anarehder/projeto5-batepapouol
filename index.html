@@ -26,12 +26,40 @@
         <input class="insereNome" type="text" placeholder="Digite seu nome" data-test="input-name">
         <button data-test="send-name" onclick="entrarSala()">Entrar</button>
     </div>
+    <div class="telaParticipantes largura escondido">
+        <section class="fundoEncoberto" data-test="overlay" onclick="escondeParticipantes()"></section>
+        <section class="listaParticipantes">
+            <div class="contato">
+            </div>
+            <div class="visibilidade">
+                <p class="titulo">Escolha a visibilidade</p>
+                <div class="opcao visibOp publico" data-test="public" onclick="selecionaVisibilidade(this)">
+                    <div class="iconeVisibilidade " >
+                        <ion-icon name="lock-open"></ion-icon>
+                    </div>
+                    <p>Público</p>
+                    <div class="iconeCkeck escondido">
+                        <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
+                    </div>
+                </div>
+                <div class="opcao visibOp " data-test="private" onclick="selecionaVisibilidade(this)">
+                    <div class="iconeVisibilidade ">
+                        <ion-icon name="lock-closed"></ion-icon>
+                    </div>
+                    <p>Reservadamente</p>
+                    <div class="iconeCkeck escondido">
+                        <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
     <div class="fundo largura escondido">
         <div class="header largura">
             <div class="logo">
                 <img src="./imagens/logo 2.png" alt="bate-papo">
             </div>
-            <div class="iconeUsuarios">
+            <div class="iconeUsuarios" data-test="open-participants" onclick="exibirParticipantes()">
                 <ion-icon name="people"></ion-icon>
             </div>
         </div>
@@ -81,13 +109,15 @@
         <div class="footer largura" data-test="input-message">
             <div class="enviarMensagem">
                 <input class="insereMensagem" type="text" placeholder="Escreva aqui...">
+                <p>Enviando para Todos</p>
             </div>
             <div class="iconeEnvio" data-test="send-message" onclick="enviarMensagem()">
                 <ion-icon name="paper-plane-outline"></ion-icon>
             </div>
-        </div>
-
+        </div>        
     </div> <!-- fundo-->
+    
+    
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://unpkg.com/ionicons@5.4.0/dist/ionicons.js"></script>
