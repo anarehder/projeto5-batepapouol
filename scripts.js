@@ -4,13 +4,18 @@ let tipo = "Público";
 let destinatario ="Todos";
 let mensagens, mensagensFiltradas, participantes;
 let chat = document.querySelector(".main");
-let telaEntrada = document.querySelector(".telaEntrada");
-let telaChat = document.querySelector(".fundo");
-let telaParticipantes = document.querySelector(".telaParticipantes");
-let listaParticipantes = document.querySelector(".contato");
-let alteraFooter = document.querySelector(".enviarMensagem");
-let divParticipante = document.querySelector(".opcao");
-let PrivOuPub = document.querySelector(".visibilidade");
+const telaEntrada = document.querySelector(".telaEntrada");
+const telaChat = document.querySelector(".fundo");
+const telaParticipantes = document.querySelector(".telaParticipantes");
+const listaParticipantes = document.querySelector(".contato");
+const alteraFooter = document.querySelector(".enviarMensagem");
+const divParticipante = document.querySelector(".opcao");
+const PrivOuPub = document.querySelector(".visibilidade");
+const tempoMensagem = 3000;
+const tempoConexao = 5000;
+const tempoParticipantes = 10000;
+const erroUserRepetido = 400;
+const teclaEnter = 13;
 
 chat.innerHTML = "";
 
@@ -31,17 +36,18 @@ function entrarSala(){
     promessaUsuario.then(response => {
         buscarMensagem();
         buscarParticipantes();
-        setInterval(buscarMensagem, 3000);
-        setInterval(manterConexao, 5000);
-        setInterval(buscarParticipantes, 10000);
+        setInterval(buscarMensagem, tempoMensagem);
+        setInterval(manterConexao, tempoConexao);
+        setInterval(buscarParticipantes, tempoParticipantes);
         telaEntrada.classList.add("escondido");
         telaChat.classList.remove("escondido");
     });
 
-    promessaUsuario.catch(erro => {if (erro.request.status === 400){
-        alert("Este usuário já está sendo utilizado");
-        location.reload();
-       }
+    promessaUsuario.catch(erro => {
+        if (erro.request.status === erroUserRepetido){
+            alert("Este usuário já está sendo utilizado");
+            location.reload();
+        }
     });
 
 
@@ -117,7 +123,7 @@ function exibirPorUltimo(){
 }
 
 document.addEventListener('keypress', function(e){
-    if(e.which == 13){
+    if(e.which === teclaEnter){
         enviarMensagem();
     }
 });
@@ -138,8 +144,10 @@ function enviarMensagem(){
 
     const promessaEnvioMensagem = axios.post("https://mock-api.driven.com.br/api/v6/uol/messages",mensagemNova);
 
-    promessaEnvioMensagem.then(response => {buscarMensagem();
-        document. querySelector(".insereMensagem"). value="";});
+    promessaEnvioMensagem.then(response => {
+        buscarMensagem();
+        document. querySelector(".insereMensagem"). value="";
+    });
 
     promessaEnvioMensagem.catch(erro => console.log(erro));//location.reload());
     }
@@ -158,18 +166,19 @@ function buscarParticipantes(){
 
     const promessaBuscaMensagem = axios.get('https://mock-api.driven.com.br/api/v6/uol/participants');
 
-    promessaBuscaMensagem.then(response => {participantes = response.data;
+    promessaBuscaMensagem.then(response => {
+        participantes = response.data;
         listaParticipantes.innerHTML = `
-        <p class="titulo">Escolha um contato para enviar mensagem:</p>
-        <div class="opcao participantes" data-test="all" onclick="selecionaParticipante(this)">
-            <div class="iconeVisibilidade" data-test="all" >
-                <ion-icon name="people"></ion-icon>
-            </div>
-            <p>Todos</p>
-            <div class="iconeCkeck escondido">
-                <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
-            </div>
-        </div>`;
+            <p class="titulo">Escolha um contato para enviar mensagem:</p>
+            <div class="opcao participantes" data-test="all" onclick="selecionaParticipante(this)">
+                <div class="iconeVisibilidade" data-test="all" >
+                    <ion-icon name="people"></ion-icon>
+                </div>
+                <p>Todos</p>
+                <div class="iconeCkeck escondido">
+                    <ion-icon name="checkmark-sharp" data-test="check"></ion-icon>
+                </div>
+            </div>`;
         participantes.forEach(exibirParticipantesTela);
     });
 
