@@ -15,7 +15,6 @@ const tempoMensagem = 3000;
 const tempoConexao = 5000;
 const tempoParticipantes = 10000;
 const erroUserRepetido = 400;
-const teclaEnter = 13;
 
 chat.innerHTML = "";
 
@@ -29,28 +28,30 @@ function entrarSala(){
         <img class="carregando" src="./imagens/carregando.gif" alt="carregando">
         <p class="entrando">Entrando...</p>`;
 
-    const usuario = { name: meuNome }; //rótulo e variável
+    const usuario = { name: meuNome };
 
     const promessaUsuario = axios.post("https://mock-api.driven.com.br/api/v6/uol/participants",usuario);
 
-    promessaUsuario.then(response => {
-        buscarMensagem();
-        buscarParticipantes();
-        setInterval(buscarMensagem, tempoMensagem);
-        setInterval(manterConexao, tempoConexao);
-        setInterval(buscarParticipantes, tempoParticipantes);
-        telaEntrada.classList.add("escondido");
-        telaChat.classList.remove("escondido");
-    });
+    promessaUsuario.then(respostaEntrada);
 
-    promessaUsuario.catch(erro => {
-        if (erro.request.status === erroUserRepetido){
-            alert("Este usuário já está sendo utilizado");
-            location.reload();
-        }
-    });
+    promessaUsuario.catch(respontaEntradaErro);
+}
 
+function respostaEntrada() {
+	buscarMensagem();
+    buscarParticipantes();
+    setInterval(buscarMensagem, tempoMensagem);
+    setInterval(manterConexao, tempoConexao);
+    setInterval(buscarParticipantes, tempoParticipantes);
+    telaEntrada.classList.add("escondido");
+    telaChat.classList.remove("escondido");
+}
 
+function respontaEntradaErro(erro){
+    if (erro.request.status === erroUserRepetido){
+        alert("Este usuário já está sendo utilizado");
+        location.reload();
+    }
 }
 
 function manterConexao(){
@@ -123,7 +124,7 @@ function exibirPorUltimo(){
 }
 
 document.addEventListener('keypress', function(e){
-    if(e.which === teclaEnter){
+    if(e.key === 'Enter'){
         enviarMensagem();
     }
 });
@@ -197,7 +198,6 @@ function exibirParticipantesTela(participantes){
     </div>`;
 }
 
-
 function selecionaParticipante(destinatarioSelecionado){
     const selecionadoAnt = listaParticipantes.querySelector(".selecionado");
     const novoIcone = destinatarioSelecionado.querySelector(".iconeCkeck");
@@ -219,7 +219,6 @@ function selecionaParticipante(destinatarioSelecionado){
 
     alterarFooter();
 }
-
 
 function selecionaVisibilidade(tipoDeVisibilidade){
     const selecionadoAnt = PrivOuPub.querySelector(".selecionado");
